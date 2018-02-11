@@ -25,15 +25,14 @@ public class Block {
 		// Create byte array from nonce value of the block
 		byte[] nonceByte = new byte[Long.BYTES];
 		nonceByte = ByteBuffer.allocate(Long.BYTES).putLong(nonce).array();
-		//System.out.println("A");
+		
 		// Mining process
 		MessageDigest md = MessageDigest.getInstance("sha-256");
 		md.update(numByte);
 		md.update(amountByte);
 		md.update(nonceByte);
-		//System.out.println("B");
 		hash = new Hash(md.digest());
-		//System.out.println("C");
+		
 		if (this.num == 0) { // First block
 			while(!hash.isValid()) {
 				nonceByte = ByteBuffer.allocate(Long.BYTES).putLong(nonce).array();
@@ -118,12 +117,6 @@ public class Block {
 					+ ", prevHash: " + prevHash.toString() + ", hash: " + hash.toString() + ")";
 		}
 	}
-//	
-//	public static void main (String[] args) throws NoSuchAlgorithmException {
-//		Block blk = new Block (0, 300, null);
-//		System.out.println(blk.hash.isValid());
-//		System.out.println(blk.toString());
-//	}
 }
 
 

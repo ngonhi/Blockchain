@@ -19,8 +19,6 @@ public class BlockChain {
 	public int size;
 
 	public BlockChain (int initial) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-//		byte[] data = "0123456789".getBytes("UTF-8");
-//		Hash hash = new Hash(data);
 		first = new Node(new Block (0, initial, null), null);
 		last = first;
 		size = 1;
@@ -61,25 +59,24 @@ public class BlockChain {
 	}
 	
 	public boolean isValidBlockChain () {
-		//System.out.println("1");
 		int total = 0;
 		if (size > 1) {
-		//	System.out.println("2");
 			Node current = first;
 			for (; current.next != null; current = current.next) {
 				total += current.blk.getAmount();
-				//System.out.println("1 " + total);
 				if (!current.blk.getHash().equals(current.next.blk.getPrevHash())) {
-					System.out.println("a");
+					return false;
+				}
+				if(!current.blk.hash.isValid()) {
 					return false;
 				}
 			}
-			//System.out.println("x");
-			total += current.blk.getAmount();
-			//System.out.println(total);
-			//System.out.println("3");
+			if(!last.blk.hash.isValid()) {
+				return false;
+			}
+			
+			total += last.blk.getAmount();
 				if (total < 0) {
-		//			System.out.println("b");
 					return false;
 				} else
 					return true;
@@ -100,7 +97,6 @@ public class BlockChain {
 	public String toString () {
 		String blockChain = new String();
 		for (Node current = first; current != null; current = current.next) {
-			//System.out.println("F");
 			blockChain += (current.blk).toString() + "\n";
 		}
 		return blockChain;

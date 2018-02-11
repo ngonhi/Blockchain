@@ -2,6 +2,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 public class BlockChainDriver {
+	
 	public static void commandMenu () {
 		System.out.println("Valid commands:");
 		System.out.println("\tmine: discovers the nonce for a given transaction");
@@ -19,7 +20,6 @@ public class BlockChainDriver {
 		Hash prevHash = blkChain.getHash();
 		int num = blkChain.getSize();
 		Block newBlk = new Block(num, amount, prevHash);
-		//blkChain.append(newBlk);
 		System.out.println("amount = " + amount + ", nonce = " + newBlk.getNonce());
 	}
 	
@@ -32,7 +32,6 @@ public class BlockChainDriver {
 		int num = blkChain.getSize();
 		Block newBlk = new Block(num, amount, prevHash, nonce);
 		blkChain.append(newBlk);
-		//System.out.println("Size = " + blkChain.getSize());
 	}
 	
 	public static void checkCommand (BlockChain blkChain) {
@@ -65,14 +64,15 @@ public class BlockChainDriver {
 		int amount = 0;
 		String command = new String();
 		Scanner in = new Scanner(System.in);
+		
 		if (args.length != 1) {
 			System.err.println("Invalid number of arguments");
 			System.out.print("Enter initial amount: ");
 			amount = Integer.parseInt(in.nextLine());
-		}
+		} else
+			amount = Integer.parseInt(args[0]);
 		
-		amount = Integer.parseInt(args[0]);
-		//System.out.println("D");
+		
 		if (amount < 0) {
 			System.err.println("Amount has to be non-negative");
 			System.out.print("Re-enter amount: ");
@@ -80,7 +80,6 @@ public class BlockChainDriver {
 		}
 		
 		BlockChain blkChain = new BlockChain(amount);
-		//System.out.println("E");
 		while (true) {
 		System.out.println();
 		System.out.print(blkChain.toString());
