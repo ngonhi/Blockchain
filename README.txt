@@ -4,6 +4,7 @@ HOMEWORK 3 - BLOCKCHAIN
 		  Martin Toney
 2. Submission includes
 - src: 
+A program that simulates the development of a blockchain that records the transactions between two parties.
 + Hash.java
 + Block.java
 + BlockChain.java
